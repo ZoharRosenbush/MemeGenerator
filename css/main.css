@@ -1,0 +1,14 @@
+body{
+    background-color: antiquewhite;
+}
+canvas{
+    background-color: white;
+}
+section.meme-generator{
+    background-color: rgb(224, 220, 220);
+    display: flex;
+    justify-content: space-between;
+}
+section.gallery{
+    background-color: rgb(141, 225, 228);
+}
