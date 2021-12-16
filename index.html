@@ -1,28 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="icon" type="image/png" href="img/favicon.ico" />
     <title>Meme Editor</title>
 </head>
-<body>
-    <section class="meme-generator">
-        <div class="canvas-container">
-            <canvas
-            height="450"
-            width="450"
-            ></canvas>
-        </div>
-        <div class="meme-editor">
-            <button>change text</button>
-        </div>
-    </section>
 
-    <section class="gallery"> 
-        hello world again
-    </section>
-    <script src="./js/main.js"></script>
+<body onload="onInit()">
+    <div class="main-screen" onclick="onToggleMenu()"></div>
+    <header class="main-header flex space-between align-center">
+        <div class="logo"> <img src="./img/design/LOGO.png" /></div>
+        <nav class="main-nav">
+            <ul class="clean-list flex">
+                <li><a href="#" class="gallery-link" onclick="onDisplayGallery()">gallery</a></li>
+                <li><a href="#">about</a></li>
+                <li><a href="#">your memes</a></li>
+            </ul>
+            <button class="btn-menu" onclick="onToggleMenu()">☰</button>
+        </nav>
+    </header>
+    <div class="search-bar">
+        <!-- text -->
+    </div>
+    <main class="main-layout flex column">
+        <section class="meme-generator flex space-between">
+            <div class="canvas-container">
+                <canvas id="meme-canvas" height="500" width="500"></canvas>
+            </div>
+            <div class="meme-editor">
+                <input type="text" placeholder="write some text!" name="txt-line" oninput="onSetLineTxt(this)">
+                <input type="color" value="#ffffff" name="txt-color" oninput="onChangeColor(this)">
+                <button onClick="onChangeFontSize(1)"><img src="./img/icons/increase font - icon.png"
+                        class="icon" /></button>
+                <button onClick="onChangeFontSize(-1)"><img src="./img/icons/decrease font - icon.png" class="icon" />
+                </button>
+                <button onClick="onSwitchLine()"><img
+                        src="./img/icons/up-and-down-opposite-double-arrows-side-by-side.png" class="icon" />
+                </button>
+                <select name="font" class="font-select" onchange="onChangeFont(this.value)">
+                    <option value="default">font</option>
+                    <option value="Impact">Impact</option>
+                    <option value="Ariel">Ariel</option>
+                    <option value="Times New Roman">Times new roman</option>
+                    <option value="monospace">monospace</option>
+                </select>
+
+            </div>
+        </section>
+
+        <section class="gallery">
+        </section>
+    </main>
+    <footer class="main-footer">
+        <section class="company-desc flex">
+            <div class="img-container">
+                <img src="./img/design/company.jpg" />
+            </div>
+            <div class="description">
+                <p><span>MemeGenerator inc.</span> </br> We give memes the proper respect,</br> We make them affect the
+                    world. </p>
+            </div>
+        </section>
+        <section>
+            <div class="footer">
+                <p>
+                    Meme Generator</br>for your service</br><span>all rights reserved 2021</span>
+                </p>
+            </div>
+
+
+        </section>
+
+    </footer>
+
+    <script src="./js/services/meme.service.js"></script>
+    <script src="./js/gallery.controller.js"></script>
+    <script src="./js/meme.controller.js"></script>
+
 </body>
+
 </html>
