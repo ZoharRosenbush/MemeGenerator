@@ -46,9 +46,6 @@ function onChangeFontSize(value) {
 function onChangeFont(value) {
     updateMemeTxtLine('font', value);
     renderMeme();
-
-
-
 }
 
 function onSwitchLine() {

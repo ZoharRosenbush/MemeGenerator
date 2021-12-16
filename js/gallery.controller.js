@@ -26,19 +26,6 @@ function onDisplayGallery() {
     elMemeGen.style.display = 'none';
     const elGallery = document.querySelector('.gallery')
     elGallery.style.display = 'grid';
-
-
-    // console.log ('displaying gallery');
-    // var hiddenEls = document.querySelectorAll('.hide')
-    // console.log (hiddenEls)
-    // hiddenEls.forEach((element) => { 
-
-    //     element.setAttribute []
-
-    // });
-
-
-
 }
 
 
