@@ -144,7 +144,7 @@ function onCanvasClick(ev) {
 }
 
 function renderMeme() {
-    resizeCanvas()
+    // resizeCanvas()
     const memeTxtLines = getMemeTxtLines()
     const memeImgData = getImg()
     const memeImg = new Image()

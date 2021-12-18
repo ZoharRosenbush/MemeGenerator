@@ -144,9 +144,6 @@ select[name=font]{
     margin: 0 10px 10px 0;
     height: 50px;
     align-self: center;
-    font-family: opensanslight;
-    font-size: 20px;
-    text-align: center;
 }
 .grid-item1{
     grid-area: txt;

@@ -27,7 +27,8 @@
     </header>
     <section class="keywords-filter flex space-between align-center">
         <div class="filter-tool">
-            <input list="keywords-list" class="txt-design" placeholder="search" name="filter" onchange="onSetFilter(this)">
+            <input list="keywords-list" class="txt-design" placeholder="search" name="filter"
+                onchange="onSetFilter(this)">
         </div>
         <nav class="keywords-nav">
             <ul class="keyword-map clean-list flex">
@@ -77,7 +78,7 @@
                 <button class="grid-item12" onClick="onTextLineDown()">
                     <img src="./img/icons/down.jpg" class="icon" />
                 </button>
-                <select name="font" class="font-select grid-item13" onchange="onChangeFont(this.value)">
+                <select name="font" class="font-select grid-item13 txt-design" onchange="onChangeFont(this.value)">
                     <option value="default">font</option>
                     <option value="Impact">Impact</option>
                     <option value="Ariel">Ariel</option>
@@ -88,7 +89,7 @@
                     <input type="file" name="image" onchange="onImgInput(event)" />
                     upload photo
                 </button>
-               
+
 
             </div>
         </section>

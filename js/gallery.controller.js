@@ -14,6 +14,7 @@ function onSelectImg(imgId) {
     document.querySelector('.gallery').style.display = 'none';
     document.querySelector('.keywords-filter').style.display = 'none';
     setMemeImg(imgId);
+    resizeCanvas()
     renderMeme();
 }
 
