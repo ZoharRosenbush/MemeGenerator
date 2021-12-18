@@ -8,29 +8,39 @@ var gCurrLineIdx = 0;
 // **FUNCTIONS**//
 
 
-function onInit() {
+function initCanvas() {
     gElCanvas = document.getElementById('meme-canvas');
     gCtx = gElCanvas.getContext('2d');
-    renderMeme()
-    renderGallery();
-    window.addEventListener('resize', resizeCanvas)
+    setCanvasSizes(gElCanvas)
     window.addEventListener('resize', () => {
         resizeCanvas()
         renderMeme();
     })
-
-    // setCanvasSizesInfo()
-    // renderCanvas();
 }
-
-// function setCanvasSizesInfo() {
-//     setCanvasSizes(gElCanvas)
-
-// }
 
 function onSetLineTxt(elInput) {
     updateMemeTxtLine('txt', elInput.value)
     renderMeme()
+}
+
+function onImgInput(ev) {
+    loadImageFromInput(ev, renderImg)
+}
+
+function renderImg(img) {
+    gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
+    console.log('the img', img)
+}
+
+function loadImageFromInput(ev, onImageReady) {
+    var reader = new FileReader()
+
+    reader.onload = (event) => {
+        var img = new Image()
+        img.onload = onImageReady.bind(null, img)
+        img.src = event.target.result
+    }
+    reader.readAsDataURL(ev.target.files[0])
 }
 
 function onChangeColor(elInput) {
@@ -38,18 +48,31 @@ function onChangeColor(elInput) {
     renderMeme()
 
 }
+
 function onChangeFontSize(value) {
     updateMemeTxtLine('size', value)
     renderMeme();
 
 }
+
 function onChangeFont(value) {
     updateMemeTxtLine('font', value);
     renderMeme();
 }
 
+function onTextLineDown() {
+    updateMemeTxtLine('pos', 10)
+    renderMeme()
+}
+
+function onTextLineUp() {
+    updateMemeTxtLine('pos', -10)
+    renderMeme()
+}
+
 function onSwitchLine() {
-    if (gCurrLineIdx < 2) { //// DO this check dynamicly
+    const txtLines = getMemeTxtLines();
+    if (gCurrLineIdx < txtLines.length - 1) {
         gCurrLineIdx += 1
 
     } else {
@@ -63,16 +86,65 @@ function onSwitchLine() {
     // renderCanvas();
 }
 
-// function renderCanvas() {
-//     drawRect()
+function onAddLine() {
+    createNewLine()
+    const newLineIdx = getMemeTxtLines().length - 1
+    gCurrLineIdx = newLineIdx
+    updateSelectedLine(gCurrLineIdx)
+    drawRect()
+    renderMeme()
+}
 
+function onRemoveLine() {
+    removeSelectedLine()
+    renderMeme()
+}
 
-// }
-function clearCanvas() {
+function onAlignLeft() {
+    updateMemeTxtLine('align', 'left')
+    renderMeme();
 
 }
 
+function onAlignRight() {
+    updateMemeTxtLine('align', 'right')
+    renderMeme();
+
+}
+
+function onAlignCenter() {
+    updateMemeTxtLine('align', 'center')
+    renderMeme();
+
+}
+
+function onCanvasClick(ev) {
+    /// THIS FUNCTION CHECKS IF THE USER PRESSED INSIDE THE LOCATION SPECRUM OF ONE OF THE TEXT LINES.
+    const Xcoord = ev.offsetX
+    const Ycoord = ev.offsetY
+    const memeTxtLines = getMemeTxtLines()
+    const foundLineIdx = memeTxtLines.findIndex((line) => {
+        if (line.align === 'left') {
+            return (Xcoord >= line.pos.x && Xcoord <= line.pos.x + line.width &&
+                Ycoord >= line.pos.y - (line.height / 2) && Ycoord <= line.pos.y + (line.height / 2))
+        } else if (line.align === 'center') {
+            return (Xcoord <= line.pos.x + (line.width / 2) && Xcoord >= line.pos.x - (line.width / 2) &&
+                Ycoord >= line.pos.y - (line.height / 2) && Ycoord <= line.pos.y + (line.height / 2))
+        } else if (line.align === 'right') {
+            return (Xcoord <= line.pos.x && Xcoord >= line.pos.x + line.width &&
+                Ycoord >= line.pos.y - (line.height / 2) && Ycoord <= line.pos.y + (line.height / 2))
+        }
+    })
+    if (foundLineIdx > -1) {
+        gCurrLineIdx = foundLineIdx
+        updateSelectedLine(gCurrLineIdx)
+        renderMeme()
+        document.querySelector('input').focus()
+    }
+}
+
 function renderMeme() {
+    resizeCanvas()
     const memeTxtLines = getMemeTxtLines()
     const memeImgData = getImg()
     const memeImg = new Image()
@@ -80,7 +152,6 @@ function renderMeme() {
     memeImg.onload = () => {
         gCtx.drawImage(memeImg, 0, 0, gElCanvas.width, gElCanvas.height)
         drawText(memeTxtLines)
-        // renderCanvas()
         drawRect()
     }
 }
@@ -89,31 +160,36 @@ function drawText(txtLines) {
     txtLines.forEach((txtLine) => {
         if (txtLine.txt !== '') {
             gCtx.textBaseline = 'middle';
-            gCtx.textAlign = 'center';
-
+            gCtx.textAlign = `${txtLine.align}`;
             gCtx.fillStyle = `${txtLine.color}`;
             gCtx.strokeStyle = 'black';
             gCtx.lineWidth = 4
-
+            const txtMeasures = gCtx.measureText(`${txtLine.txt}`)
+            txtLine.width = txtMeasures.width
+            txtLine.height = txtMeasures.actualBoundingBoxAscent + txtMeasures.actualBoundingBoxDescent
             gCtx.font = `${txtLine.size}px ${txtLine.font}`;
-            gCtx.fillText(txtLine.txt, gElCanvas.width / 2, txtLine.pos.y, gElCanvas.width - 50);
-            gCtx.strokeText(txtLine.txt, gElCanvas.width / 2, txtLine.pos.y, gElCanvas.width - 50);
+            gCtx.fillText(txtLine.txt, txtLine.pos.x, txtLine.pos.y, gElCanvas.width - 50);
+            gCtx.strokeText(txtLine.txt, txtLine.pos.x, txtLine.pos.y, gElCanvas.width - 50);
         }
     });
-
 }
+
 function drawRect() {
-    const currSelectedLine = getCurrSelectedLine()
+    const selectedLine = getCurrSelectedLine()
+    const selectedLineIdx = getCurrSelectedLineIdx()
     gCtx.beginPath()
-    gCtx.rect(0, currSelectedLine.pos.y - 50, gElCanvas.width, 100);
+    gCtx.rect(0, selectedLine.pos.y - 50, gElCanvas.width, 100);
     gCtx.closePath()
     gCtx.lineWidth = 3
-    gCtx.strokeStyle = 'white';
+    if (selectedLineIdx > 2) gCtx.strokeStyle = 'magenta';
+    else gCtx.strokeStyle = 'white';
     gCtx.stroke();
 }
+
 function resizeCanvas() {
     var elContainer = document.querySelector('.canvas-container');
     gElCanvas.width = elContainer.offsetWidth;
+    setCanvasSizes(gElCanvas)
 }
 
 

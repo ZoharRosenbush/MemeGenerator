@@ -2,33 +2,27 @@
 
 
 function renderGallery() {
-    const images = getImgs();
+    const images = getImgsForDisplay();
     var strHtmls = images.map((img) => {
         return `<div class="img-container"> <img src="${img.url}" data-imgId="${img.id}" class="gallery-img" onclick="onSelectImg(${img.id})"/> </div>`
     })
     document.querySelector('.gallery').innerHTML = strHtmls.join('');
-
 }
-
 
 function onSelectImg(imgId) {
-    const elMemeGen = document.querySelector('.meme-generator')
-    elMemeGen.style.display = 'flex';
-    const elGallery = document.querySelector('.gallery')
-    elGallery.style.display = 'none';
+    document.querySelector('.meme-generator').style.display = 'flex';
+    document.querySelector('.gallery').style.display = 'none';
+    document.querySelector('.keywords-filter').style.display = 'none';
     setMemeImg(imgId);
     renderMeme();
-
-
 }
+
 function onDisplayGallery() {
-    const elMemeGen = document.querySelector('.meme-generator')
-    elMemeGen.style.display = 'none';
-    const elGallery = document.querySelector('.gallery')
-    elGallery.style.display = 'grid';
+    document.querySelector('.meme-generator').style.display = 'none';
+    document.querySelector('.gallery').style.display = 'grid';
+    document.querySelector('.keywords-filter').style.display = 'flex';
 }
 
-
-function onToggleMenu(){
+function onToggleMenu() {
     document.body.classList.toggle('menu-open');
 }

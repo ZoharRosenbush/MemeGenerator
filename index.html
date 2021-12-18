@@ -6,14 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/main.css">
-    <link rel="icon" type="image/png" href="img/favicon.ico" />
-    <title>Meme Editor</title>
+    <link rel="icon" type="image/png" href="img/favicon3.ico" />
+    <title>Meme Generator</title>
 </head>
 
 <body onload="onInit()">
     <div class="main-screen" onclick="onToggleMenu()"></div>
     <header class="main-header flex space-between align-center">
-        <div class="logo"> <img src="./img/design/LOGO.png" /></div>
+        <div class="logo">
+            <img src="./img/design/LOGO.png" />
+        </div>
         <nav class="main-nav">
             <ul class="clean-list flex">
                 <li><a href="#" class="gallery-link" onclick="onDisplayGallery()">gallery</a></li>
@@ -23,31 +25,70 @@
             <button class="btn-menu" onclick="onToggleMenu()">☰</button>
         </nav>
     </header>
-    <div class="search-bar">
-        <!-- text -->
-    </div>
+    <section class="keywords-filter flex space-between align-center">
+        <div class="filter-tool">
+            <input list="keywords-list" class="txt-design" placeholder="search" name="filter" onchange="onSetFilter(this)">
+        </div>
+        <nav class="keywords-nav">
+            <ul class="keyword-map clean-list flex">
+            </ul>
+        </nav>
+    </section>
+
     <main class="main-layout flex column">
         <section class="meme-generator flex space-between">
             <div class="canvas-container">
-                <canvas id="meme-canvas" height="500" width="500"></canvas>
+                <canvas id="meme-canvas" height="500" width="500" onclick="onCanvasClick(event)"></canvas>
             </div>
             <div class="meme-editor">
-                <input type="text" placeholder="write some text!" name="txt-line" oninput="onSetLineTxt(this)">
-                <input type="color" value="#ffffff" name="txt-color" oninput="onChangeColor(this)">
-                <button onClick="onChangeFontSize(1)"><img src="./img/icons/increase font - icon.png"
-                        class="icon" /></button>
-                <button onClick="onChangeFontSize(-1)"><img src="./img/icons/decrease font - icon.png" class="icon" />
+                <input class="grid-item1 txt-design" type="text" placeholder="make a meme!" name="txt-line"
+                    oninput="onSetLineTxt(this)">
+                <button class="grid-item2">
+                    <img src="./img/icons/paint-board-and-brush.png" class="icon" />
+                    <input type="color" name="txt-color" oninput="onChangeColor(this)">
                 </button>
-                <button onClick="onSwitchLine()"><img
-                        src="./img/icons/up-and-down-opposite-double-arrows-side-by-side.png" class="icon" />
+                <button class="grid-item3" onClick="onChangeFontSize(1)">
+                    <img src="./img/icons/increase font - icon.png" class="icon" />
                 </button>
-                <select name="font" class="font-select" onchange="onChangeFont(this.value)">
+                <button class="grid-item4" onClick="onChangeFontSize(-1)">
+                    <img src="./img/icons/decrease font - icon.png" class="icon" />
+                </button>
+                <button class="grid-item5" onClick="onSwitchLine()">
+                    <img src="./img/icons/up-and-down-opposite-double-arrows-side-by-side.png" class="icon" />
+                </button>
+                <button class="grid-item6" onClick="onAddLine()">
+                    <img src="./img/icons/add.png" class="icon" />
+                </button>
+                <button class="grid-item7" onClick="onRemoveLine()">
+                    <img src="./img/icons/trash.png" class="icon" />
+                </button>
+                <button class="grid-item8" onClick="onAlignLeft()">
+                    <img src="./img/icons/align-to-left.png" class="icon" />
+                </button>
+                <button class="grid-item9" onClick="onAlignRight()">
+                    <img src="./img/icons/align-to-right.png" class="icon" />
+                </button>
+                <button class="grid-item10" onClick="onAlignCenter()">
+                    <img src="./img/icons/center-text-alignment.png" class="icon" />
+                </button>
+                <button class="grid-item11" onClick="onTextLineUp()">
+                    <img src="./img/icons/up.jpg" class="icon" />
+                </button>
+                <button class="grid-item12" onClick="onTextLineDown()">
+                    <img src="./img/icons/down.jpg" class="icon" />
+                </button>
+                <select name="font" class="font-select grid-item13" onchange="onChangeFont(this.value)">
                     <option value="default">font</option>
                     <option value="Impact">Impact</option>
                     <option value="Ariel">Ariel</option>
                     <option value="Times New Roman">Times new roman</option>
                     <option value="monospace">monospace</option>
                 </select>
+                <button class="grid-item14 flex justify-center align-center txt-design">
+                    <input type="file" name="image" onchange="onImgInput(event)" />
+                    upload photo
+                </button>
+               
 
             </div>
         </section>
@@ -56,7 +97,7 @@
         </section>
     </main>
     <footer class="main-footer">
-        <section class="company-desc flex">
+        <section class="company-desc flex align-center">
             <div class="img-container">
                 <img src="./img/design/company.jpg" />
             </div>
@@ -66,20 +107,30 @@
             </div>
         </section>
         <section>
-            <div class="footer">
+            <div class="cofferights">
                 <p>
                     Meme Generator</br>for your service</br><span>all rights reserved 2021</span>
                 </p>
             </div>
-
-
         </section>
-
     </footer>
+
+    <datalist id="keywords-list">
+        <option value="all">
+        <option value="baby">
+        <option value="cat">
+        <option value="dog">
+        <option value="film">
+        <option value="funny">
+        <option value="politics">
+        <option value="sports">
+        <option value="tv">
+    </datalist>
 
     <script src="./js/services/meme.service.js"></script>
     <script src="./js/gallery.controller.js"></script>
     <script src="./js/meme.controller.js"></script>
+    <script src="./js/main.controller.js"></script>
 
 </body>
 

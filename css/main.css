@@ -3,36 +3,32 @@
 * {
     box-sizing: border-box;
 }
-
-
 html{
     margin: 0;
    
 }
-
 body{
     background-color: #333333;
     font-family: opensanslight;
     width: 100vw;
+    font-size: 25px;
 }
 
 /* **FONTS** */
-
 @font-face {
     font-family: opensanslight;
-    src: url(/fonts/Open_Sans_Condensed/OpenSansCondensed-Light.ttf);
+    src: url(../fonts/Open_Sans_Condensed/OpenSansCondensed-Light.ttf);
 }
+
 @font-face {
     font-family: opensansitalic;
-    src: url(/fonts/Open_Sans_Condensed/OpenSansCondensed-LightItalic.ttf);
+    src: url(../fonts/Open_Sans_Condensed/OpenSansCondensed-LightItalic.ttf);
 }
+
 @font-face {
     font-family: opensansbold;
-    src: url(/fonts/Open_Sans_Condensed/OpenSansCondensed-Bold.ttf);
+    src: url(../fonts/Open_Sans_Condensed/OpenSansCondensed-Bold.ttf);
 }
-
-
-
 /* ***HEADER*** */
 
 
@@ -42,24 +38,54 @@ body{
     padding: 8.5px 25px 0 24.5px;
     background-color: #424245;
 }
-
 .main-nav li a{
     color: white;
     text-decoration: none;
     text-transform: uppercase;
-    /* font-weight: bolder; */
     margin-inline-end: 40px;
-    font-size: 25px;
+    font-size: 1em;
     font-family:opensansbold,serif; ;
    
 }
-
-.main-nav li a:hover{
+a:hover{
     cursor: pointer;
 }
+div.logo img{
+    height: 30px;
+}
 
+/* ***KEYWORDS SECTION*** */
 
-/* **LAYOUT** */
+section.keywords-filter {
+    flex-direction: column;
+    height: 110px;
+    width: 100vw;
+    margin-bottom: 10px;
+    padding: 10px 15px 10px 15px;
+    background-color: #333333;
+    box-shadow: inset 0px 20px 20px 14px #0008;
+}
+.keyword{
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-inline-end: 40px;
+    font-family:opensansbold,serif; ;
+   
+}
+.baby,.dog,.politics,.sports,.film,.tv{
+    display: none;
+}
+.cat::after{
+    content: '   MORE...';
+    font-size: 0.6em;
+    margin-inline-start: 15px;
+}
+div.filter-tool{
+    margin-bottom: 10px;
+}
+
+/* **MAIN LAYOUT** */
 
 /* **CANVAS** */
 
@@ -70,31 +96,109 @@ canvas{
     width: 80vw;
     padding: 20px,40px,20px,40px;
     margin: auto;
-
 }
-
-/* ***** */
-
-
-div.logo img{
-    height: 30px;
-}
-
-div.search-bar{
-    height: 80px;
-    width: 100vw;
-    margin-bottom: 10px;
-    background-color: #333333;
-    box-shadow: inset 0px 20px 20px 14px #0008;
-}
+/* ***MEME GENERATOR*** */
 
 section.meme-generator{
     width: 100vw;
     background-color: #e0dcdc30;
-    margin-bottom: 40px;
+    margin: 40px 0 40px 0;
     flex-direction: column;
+    justify-items: center;
     align-items: center;
     padding: 20px 40px 20px 40px;
+    display: none;
+}
+
+.meme-editor{
+    background-color: rgb(25, 24, 24);
+    border-radius: 6px;
+    padding: 20px 20px 20px 20px;
+    height: 300px;
+    display: grid;
+    grid-template-areas: 
+    "txt txt txt txt txt"
+    ". btnA btnB btnC ."
+    "btnD btnE btnF btnG btnH"
+    "select select btnI btnJ btnK"
+    "upload upload upload upload upload"
+    ;
+}
+.meme-editor button{
+    margin: 0 10px 10px 0;
+    height: 50px;
+    width: 50px;
+    align-self: center;
+    justify-self: center;
+    border-radius: 6px;
+    box-shadow: 1px -1px 3px #ef6b30;
+}
+input[type=text]{
+    margin: 0 10px 10px 0;
+}
+input[type=file]{
+    position: absolute;
+    opacity: 0;
+}
+select[name=font]{
+    margin: 0 10px 10px 0;
+    height: 50px;
+    align-self: center;
+    font-family: opensanslight;
+    font-size: 20px;
+    text-align: center;
+}
+.grid-item1{
+    grid-area: txt;
+}
+.grid-item5{
+    grid-area: btnA;
+}
+.grid-item6{
+    grid-area: btnB;
+}
+.grid-item7{
+    grid-area: btnC;
+}
+.grid-item2{
+    grid-area: btnD;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.grid-item3{
+    grid-area: btnE;
+}
+.grid-item4{
+    grid-area: btnF;
+}
+.grid-item11{
+    grid-area: btnG;
+}
+.grid-item12{
+    grid-area: btnH;
+}
+.grid-item13{
+    grid-area: select;
+}
+.grid-item8{
+    grid-area: btnI;
+}
+.grid-item9{
+    grid-area: btnJ;
+}
+.grid-item10{
+    grid-area: btnK;
+}
+.meme-editor button.grid-item14{
+    grid-area: upload;
+    width: 130px;
+}
+input[type=color]{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    opacity: 0;
 }
 section.gallery{
     /* background-color: #e8e8e8ab; */
@@ -106,13 +210,10 @@ section.gallery{
     margin-bottom: 20px;
 
 }
-
 .img-container{
     height: 315px;
     width:  315px;
-    /* margin-bottom: 50px; */
     margin: 0,0,0,0;
-    
 }
 .gallery-img{
     width: 100%;
@@ -138,8 +239,6 @@ input:focus::-webkit-input-placeholder {
     box-shadow: inset 0px 20px 20px 14px #0008;
     padding-top: 40px;
 }
-
-
 .company-desc .img-container{
     height: 250px;
     width: 250px;
@@ -147,43 +246,35 @@ input:focus::-webkit-input-placeholder {
     margin-inline-end: 70px;
 }
 section.company-desc p{
-    font-size: 30px;
     line-height: 1.5em;
     text-align: center;
-    
 }
 section.company-desc p span{
     font-weight: bolder;
-    font-size: 60px;
+    font-size: 1.5em;
     font-family: opensansbold,serif;
-    
 }
-
 .company-desc{
     flex-direction: column;
-    align-items: center;
     margin-bottom: 20px;
     font-family: opensansitalic,serif;
-
 }
-
 .company-desc .img-container img{
     height: 100%;
     width: 100%;
     object-fit: cover;
     border-radius: 50%;
 }
-
-div.footer{
+div.cofferights{
     background-color: #acacc06b;
     border-top: 0.6px solid #f0fefe;
     text-align: center;
 }
- div.footer p{
-     font-size: 20px;
+div.cofferights p{
+     font-size: 1em;
 }
-div.footer p span{
-    font-size: 15px;
+div.cofferights p span{
+    font-size: 0.9em;
 }
 
 /* **HELPERS** */
@@ -194,7 +285,6 @@ div.footer p span{
 .flex.column{
     flex-direction: column;
 }
-
 .clean-list {
     list-style-type: none;
     margin: 0;
@@ -206,15 +296,17 @@ div.footer p span{
 .flex.justify-center{
     justify-content: center;
 }
-
 .flex.align-center {
     align-items: center;
 }
+.txt-design{
+    font-family: opensanslight,serif;
+    font-size: 20px;
+    text-align: center;
+
+}
 
 /* **SCREENS** */
-
-/* SCREENS */
-
 .main-screen {
     position: fixed;
     width: 100%;
@@ -228,16 +320,24 @@ div.footer p span{
 
     transition: opacity .6s;
 }
-
 body.menu-open .main-screen {
     pointer-events: auto;
     opacity: 1;
 }
 
-
-
+/* ***HAMBURGER*** */
 
 @media (max-width: 992px) {
+    .main-nav button{
+        height: 30px;
+        width: 40px;
+        background-color: rgba(0, 0, 0, 0.67);
+        border: 2px solid black;
+        color: white;
+        font-size: 0.68em;
+        text-align: center;
+        font-weight: bolder;
+    }
     .main-nav ul{
         position: fixed;
         top: 0;
@@ -277,24 +377,46 @@ body.menu-open .main-screen {
     section.gallery{
         grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
     }
-
-
     .img-container{
         height: 300px;
         width: 300px;
-        /* margin-bottom: 50px; */
         margin: 0,0,0,0;
-        
     }
+    .baby,.dog{
+        display: inline;
+    }
+    .cat::after{
+        content: none;
+    }
+    .dog:after{
+        content: '   MORE...';
+        font-size: 0.6em;
+        margin-inline-start: 15px;
+    }
+    section.company-desc p{
+        font-size: 30px;
+    }
+    section.company-desc p span{
+        font-weight: bolder;
+        font-size: 2em;
+        font-family: opensansbold,serif;
+    }
+    div.cofferights p{
+        font-size: 25px;
+    }
+    div.cofferights p span{
+        font-size: 0.6em;
+    }
+
 }
-
-
-
 
 /** DESKTOP **/
 
 @media (min-width: 992px){
 
+    section.keywords-filter{
+        flex-direction: row;
+    }
     .company-desc{
         flex-direction: row;
         justify-content: center;
@@ -310,9 +432,7 @@ body.menu-open .main-screen {
     .img-container{
         height: 200px;
         width: 200px;
-        /* margin-bottom: 50px; */
         margin: 0,0,0,0;
-        
     }
     section.gallery{
         grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
@@ -320,7 +440,15 @@ body.menu-open .main-screen {
     .canvas-container{
         width: 500px;
         padding: 20px,40px,20px,40px;
-    
+    }
+    div.filter-tool{
+        margin-bottom: 0px;
+    }
+    .politics,.sports,.film,.tv{
+        display: inline;
+    }
+    .dog:after{
+        content: none;
     }
 
 }
